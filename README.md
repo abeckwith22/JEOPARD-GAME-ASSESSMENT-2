@@ -2,7 +2,6 @@
 
 **Welcome to Jeopardy!** This is my assessment for Unit 19 of UMass globals coursework.
 
-
 `script.js`
 
 ```js
@@ -18,7 +17,10 @@ const board = document.querySelector('#jeopardy-board');
 const restart_button = document.querySelector('#restart-button');
 const start_button = document.querySelector('#start-button');
 
-/* does element exist in array. for some dumb reason keyword 'in' doesn't work and I kept getting duplicate categories, so I just wrote my own implementation... god I hate JavaScript */
+/* 
+checks if element exist in array. 
+For some dumb reason keyword 'in' doesn't work and I kept getting duplicate categories, so I just wrote my own implementation...
+*/
 function exists(arr, element){
     return arr.some(function(value){
         return value === element;
@@ -84,13 +86,7 @@ function getQuestion(x, y){
     return document.ROWSARR[x][y].question;
 }
 
-/* loadBoard() gets information on categories and clues
-** creates the headers which are the categories that user is going to be questioned on
-** creates a table row element for each clue
-** for loop gets one clue each time it passes through so that fixes the problem of setting categories to match the clues below it
-** creates a table data element called 'clue' and sets .innerText to each of the clues in the cluesArray
-** table row element is finished and appended to 'tableRow'*/
-
+/* loadBoard() loads information onto the DOM and creates the board */
 async function loadBoard(){
     // clears the board and creates new headers for the jeopardy board
     board.innerHTML = '';
@@ -130,26 +126,6 @@ async function loadBoard(){
         j = 0;
     }
 
-
-    // while(rows < 5){
-    //     const tableRow = document.createElement('tr');
-    //     for(let i=0; i<clueArray.length; i++){
-    //         const tableData = document.createElement('td');
-    //         const currentClue = clueArray[i][j];
-    //         if (currentClue.question !== '='){
-    //             // tableData.innerText = currentClue.question;
-    //             tableData.innerText = '?';
-    //         }
-    //         else{
-    //             // tableData.innerText = clueArray[i][j + 1]; // skipping over '=' in clueList
-    //             tableData.innerText = '?';
-    //         }
-    //         tableRow.append(tableData);
-    //     }
-    //     board.append(tableRow);
-    //     j++;
-    //     rows++;
-    // }
 }
 
 // event listeners
@@ -180,5 +156,83 @@ board.addEventListener('click', function(event){
 
     }
 });
+
+```
+
+`style.css`
+
+```css
+body {
+    background-color: rgb(40, 40, 40);
+}
+
+h1 {
+    /* justify-content: center; */
+
+    color: white;
+    font-size: 3em;
+}
+
+table, th, td {
+    min-width: 250px;
+    max-width: 250px;
+    height: 250px;
+    min-height: 250px;
+    max-height: 250px;
+    color: white;
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+
+tr {
+    background-color: blue;
+}
+
+td {
+    text-align: center;
+}
+
+button {
+    width: 200px;
+    height: 100px;
+    font-size: 2em;
+    margin: 10px auto;
+    border-style:none;
+}
+
+#start-button{
+    background-color: limegreen;
+    color: white;
+}
+
+#restart-button{
+    background-color: red;
+    color: white;
+}
+```
+
+`index.html`
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>---JEOPARDY GAME---</title>
+  </head>
+  <body>
+    <h1>JEOPARDY GAME</h1>
+    <table id="jeopardy-board">
+    </table>
+    <button id="start-button">Start</button>
+    <button id="restart-button">Restart</button>
+
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- Jeopardy Game -->
+    <script src="script.js"></script>
+  </body>
+</html>
 
 ```
